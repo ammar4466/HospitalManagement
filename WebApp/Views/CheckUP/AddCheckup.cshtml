@@ -1,0 +1,479 @@
+﻿@using Infrastructure.Model;
+@model checkupVM
+@{
+    var doclist = new SelectList(Model.doctorsLIST, "DoctorId", "FullName");
+    var patientlist = new SelectList(Model.PTLIST, "PatientId", "FullName");
+    //var M = Model.MedicineDetails.FirstOrDefault() ??  new MedicineDetail();
+}
+<style>
+    .ui-widget-overlay{
+        z-index: 1 !important;
+    }
+
+</style>
+<div class="">
+    @*<div class="modal-header">
+    <div class="col-md-8">
+    <h3 id="titleExtraBigModal" class="modal-title">Add Checkup</h3>
+    </div>
+    <div class="col-md-pull-4 pull-right">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+    </div>
+    </div>*@
+    <div class="modal-body" id="ExtraBigModalDiv">
+
+        <div data-select2-id="10">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+
+                        <div class="col-5 col-sm-5">
+                            @*<div hidden="">
+                            <input asp-for="Id" type="number">
+                            <input asp-for="VisitId" type="text">
+                            <input asp-for="PaymentId" type="number">
+                            <input asp-for="CreatedDate" type="datetime-local">
+                            <input asp-for="CreatedBy" type="text">
+                            <input asp-for="Id" type="number">
+                            </div>*@
+                            <input asp-for="Id" type="hidden">
+                            <input asp-for="VisitId" type="hidden">
+                            <div class="form-group row">
+                                <label asp-for="PatientId" class="col-sm-3 col-form-label">Patient</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="PatientId" class="form-control" asp-items="@patientlist">
+                                        <option value="0">:: SELECT::</option>
+                                    </select>
+                                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="PatientType" class="col-sm-3 col-form-label">PatientType</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="PatientType" class="form-control" style="width:100%;">
+                                        <option value="1">Out Patient</option>
+                                        <option value="2">In Patient</option>
+                                    </select>
+                                    <span asp-validation-for="PatientType" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="DoctorId" class="col-sm-3 col-form-label">Doctor</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="DoctorId" class="form-control" asp-items="@doclist">
+                                        <option value="0">:: SELECT ::</option>
+                                    </select>
+                                    <span asp-validation-for="DoctorId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="CheckupDate" class="col-sm-3 col-form-label">Checkup Date</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="CheckupDate" class="form-control" type="datetime-local">
+                                    <span asp-validation-for="CheckupDate" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="NextVisitDate" class="col-sm-3 col-form-label">Next Visit</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="NextVisitDate" class="form-control" type="datetime-local">
+                                    <span asp-validation-for="NextVisitDate" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Advice" class="col-sm-3 col-form-label">Advice</label>
+                                <div class="col-sm-9">
+                                    <textarea asp-for="Advice" class="form-control"></textarea>
+                                    <span asp-validation-for="Advice" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Comments" class="col-sm-3 col-form-label">Comments</label>
+                                <div class="col-sm-9">
+                                    <textarea asp-for="Comments" class="form-control"></textarea>
+                                    <span asp-validation-for="Comments" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 col-sm-7">
+                            <div class="card card-primary card-outline card-tabs">
+                                <div class="card-header p-0 pt-1 border-bottom-0">
+                                    <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="ChiefComplaint" data-toggle="pill" href="#divChiefComplaint" role="tab" aria-controls="ChiefComplaint" aria-selected="false">
+                                                Chief Complaint
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="Treatment" data-toggle="pill" href="#divTreatment" role="tab" aria-controls="Treatment" aria-selected="true">Treatment</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="Investigations" data-toggle="pill" href="#divInvestigations" role="tab" aria-controls="Investigations" aria-selected="false">Investigations</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="VitalSigns" data-toggle="pill" href="#divVitalSigns" role="tab" aria-controls="VitalSigns" aria-selected="false">Vital Signs</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="tab-content" id="tabContent">
+                                        <div class="tab-pane fade" id="divChiefComplaint" role="tabpanel" aria-labelledby="divChiefComplaint">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label" for="CheckupSummaryCRUDViewModel_Symptoms">Symptoms</label>
+                                                <div class="col-sm-9">
+                                                    <textarea asp-for="Symptoms" class="form-control"></textarea>
+                                                    <span asp-validation-for="Symptoms" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label" for="CheckupSummaryCRUDViewModel_Diagnosis">Diagnosis</label>
+                                                <div class="col-sm-9">
+                                                    <textarea asp-for="Diagnosis" class="form-control"></textarea>
+                                                    <span asp-validation-for="Diagnosis" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label" for="CheckupSummaryCRUDViewModel_VitalSigns">Vital Signs</label>
+                                                <div class="col-sm-9">
+                                                    <textarea asp-for="VitalSigns" class="form-control"></textarea>
+                                                    <span asp-validation-for="VitalSigns" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label" for="CheckupSummaryCRUDViewModel_HPI">HPI</label>
+                                                <div class="col-sm-9">
+                                                    <textarea asp-for="HPI" class="form-control"></textarea>
+                                                    <span asp-validation-for="HPI" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label" for="CheckupSummaryCRUDViewModel_PhysicalExamination">Physical Examination</label>
+                                                <div class="col-sm-9">
+                                                    <textarea asp-for="PhysicalExamination" class="form-control"></textarea>
+                                                    <span asp-validation-for="PhysicalExamination" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade show active" id="divTreatment" role="tabpanel" aria-labelledby="divTreatment">
+                                            <div class="row">
+                                                <div class="col-6 col-sm-6">
+                                                </div>
+                                                <div class="col-6 col-sm-6">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-sm-12">
+                                                    <table id="tblMedicineDetails" class="ItemsTable" border="1">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Id</th>
+                                                                <th>Medicine</th>
+                                                                <th>No of Days</th>
+                                                                <th>When to Take</th>
+                                                                <th>Before Meal?</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="meddata"></tbody>
+                                                        <tfoot id="tblAddMedicinefoot">
+                                                            <tr class="medicine-details-row" id="defaultMedicineRow">
+                                                                <td>
+                                                                    <input name="CheckUPId" type="number" style="width: 50px;" class="unstyled-button" readonly>
+                                                                </td>
+                                                                <td>
+                                                                    <select name="Medicine" class="form-control" style="width: 250px">
+                                                                        <option value="0" selected>--- SELECT ---</option>
+                                                                        <option value="1">Paracetamol 500 mg, Available Quantity: 88</option>
+                                                                        <option value="2">Paracetamol 600 mg, Available Quantity: 43</option>
+                                                                        <option value="3">Paracetamol 700 mg, Available Quantity: 97</option>
+                                                                        <option value="4">Oxycodone, Available Quantity: 87</option>
+                                                                        <option value="5">Tylenol, Available Quantity: 80</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input name="NoOfDays" type="number" style="width: 80px" min="1" class="form-control">
+                                                                </td>
+                                                                <td>
+                                                                    <select name="WhenToTake" class="form-control" style="width: 100px">
+                                                                        <option value="0" selected>--- SELECT ---</option>
+                                                                        <option value="3">1-1-1</option>
+                                                                        <option value="2">1-0-1</option>
+                                                                        <option value="1">0-0-1</option>
+                                                                        <option value="1">0-1-0</option>
+                                                                        <option value="1">1-0-0</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input name="IsBeforeMeal" type="checkbox" style="width: 50px" class="form-control">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="button" id="btnAddMedicine" onclick="AddHTMLTableRow();" value="Add" class="btn btn-info btn-xs">
+                                                                </td>
+                                                            </tr>
+
+                                                            
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="divInvestigations" role="tabpanel" aria-labelledby="divInvestigations">
+                                            <div class="row">
+                                                <div class="form-group col-sm-12">
+                                                    <table id="tblItemList" class="ItemsTable" border="1">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Tests Id</th>
+                                                                <th>Test Name</th>
+                                                                <th>Unit Price</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                        <tfoot id="tblAddLabTeststfoot">
+                                                            <tr>
+                                                                <td>
+                                                                    <input asp-for="LabId" style="width: 50px;" class="unstyled-button" hidden readonly>
+                                                                </td>
+                                                                <td>
+                                                                    <select asp-for="TestName" class="form-control select2" style="width: 400px">
+                                                                        <option value="0">:: select :: </option>
+                                                                        <option value="1">Lab 1</option>
+                                                                        <option value="2">Lab 2</option>
+                                                                        <option value="3">Lab 3</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input asp-for="UnitPrice" style="width: 70px;" class="unstyled-button" readonly>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="button" id="btnAddLabTestsItem" onclick="AddHTMLTableRowLabTest();" value="Add Test" class="btn btn-success btn-xs">
+                                                                </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="divVitalSigns" role="tabpanel" aria-labelledby="divVitalSigns">
+                                            <div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-5 col-form-label">BP Systolic</label>
+                                                    <div class="col-sm-7">
+                                                        <input asp-for="BPSystolic" class="form-control" type="number" max="300">
+                                                        <span asp-validation-for="BPSystolic" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-5 col-form-label">BP Diastolic</label>
+                                                    <div class="col-sm-7">
+                                                        <input asp-for="BPDiastolic" class="form-control" type="number" max="300">
+                                                        <span asp-validation-for="BPDiastolic" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-5 col-form-label">Respiration Rate</label>
+                                                    <div class="col-sm-7">
+                                                        <input asp-for="RespirationRate" class="form-control" type="number">
+                                                        <span asp-validation-for="RespirationRate" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-5 col-form-label">Temperature(°F)</label>
+                                                    <div class="col-sm-7">
+                                                        <input asp-for="Temperature" class="form-control" type="number">
+                                                        <span asp-validation-for="Temperature" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Nursing Notes</label>
+                                                    <textarea asp-for="NursingNotes" class="form-control"></textarea>
+                                                    <span asp-validation-for="NursingNotes" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12 d-flex justify-content-end">
+                <input type="submit" value="Save" class="btn btn-info" onclick="SaveCheckup()">
+                <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        @* <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+        <script>
+        $(document).ready(function () {
+        $("#ddlMedicine").select2();
+        $("#PatientId").select2();
+        $("#DoctorId").select2();
+        $("#Medicine").select2();
+        $("#LabTestsId").select2();
+        });
+        </script>*@
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
+@*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">*@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+<script>
+    function AddHTMLTableRow() {
+        debugger;
+        var medicineName = $("#tblAddMedicinefoot select[name='Medicine']").val();
+        var noOfDays = $("#tblAddMedicinefoot input[name='NoOfDays']").val();
+        var whenToTake = $("#tblAddMedicinefoot select[name='WhenToTake']").val();
+
+        // Validate values
+        if (medicineName === "0") {
+            Swal.fire({
+                icon: 'error',
+                title: 'MedicineName is Required.',
+            });
+            return;
+        }
+        if (noOfDays === "") { // Change this condition to check for an empty string
+            Swal.fire({
+                icon: 'error',
+                title: 'No Of Days is Required.',
+            });
+            return;
+        }
+        if (whenToTake === "0") {
+            Swal.fire({
+                icon: 'error',
+                title: 'When To Take is Required.',
+            });
+            return;
+        }
+
+        var medicineIdCounter = parseInt($("#CheckupMedicineDetailsId").val()) + 1;
+        $("#CheckupMedicineDetailsId").val(medicineIdCounter);
+
+        // Get values from input fields
+        var medicineId = medicineIdCounter;
+        var medicineNameText = $("#tblAddMedicinefoot select[name='Medicine'] option:selected").text();
+        var noOfDaysValue = $("#tblAddMedicinefoot input[name='NoOfDays']").val();
+        var whenToTakeText = $("#tblAddMedicinefoot select[name='WhenToTake'] option:selected").text();
+        var isBeforeMeal = $("#tblAddMedicinefoot input[name='IsBeforeMeal']").prop('checked');
+
+        // Create a new row with the obtained values
+        var newRow = "<tr>" +
+            "<td>" + medicineId + "</td>" +
+            "<td>" + medicineNameText + "</td>" + // Changed variable name to avoid conflict
+            "<td>" + noOfDaysValue + "</td>" + // Changed variable name to avoid conflict
+            "<td>" + whenToTakeText + "</td>" + // Changed variable name to avoid conflict
+            "<td>" + (isBeforeMeal ? "Yes" : "No") + "</td>" +
+            "<td><input type='button' onclick='RemoveHTMLTableRow(this);' value='Remove' class='btn btn-danger btn-xs'></td>" +
+            "</tr>";
+
+        // Append the new row to the tbody
+        $("#tblMedicineDetails tbody").append(newRow);
+        let obj = {
+            //Id: $("#Id").val(),
+            VisitId: $("#VisitId").val(),
+            CheckUPId: $("#Id").val(),
+            Medicine: medicineNameText, 
+            NoOfDays: noOfDaysValue, 
+            WhenToTake: whenToTakeText, 
+            IsBeforeMeal: isBeforeMeal,
+        };
+        
+        $.post('/CheckUP/SaveMedicineSpecification', obj)
+            .done((res) => {
+                if (res.statusCode == 1) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Medicine saved successfully!',
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error saving medicine!',
+                    });
+                }
+            })
+            .fail((xhr) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Server error!',
+                });
+            });
+
+        //resetFormFields();
+    }
+        function resetFormFields() {
+            $("#CheckupMedicineDetailsId").val("0");
+            $("#tblAddMedicinefoot select[name='Medicine']").val("0");
+            $("#tblAddMedicinefoot input[name='NoOfDays']").val("");
+            $("#tblAddMedicinefoot select[name='WhenToTake']").val("0");
+            $("#tblAddMedicinefoot input[name='IsBeforeMeal']").prop('checked', false);
+        }
+
+        //$("#btnAddMedicine").prop('disabled', false);
+   
+
+    function RemoveHTMLTableRow(button) {
+        //$("#btnAddMedicine").prop('disabled', false);
+
+        // Remove the row
+        $(button).closest('tr').remove();
+    }
+
+    /* ------ Lab_Test_Add ------ */
+    function AddHTMLTableRowLabTest() {
+        var LabTestsIdCounter = parseInt($("#LabId").val()) + 1;
+        $("#LabId").val(LabTestsIdCounter);
+
+        // Get values from input fields
+        var LabId = LabTestsIdCounter;
+        var LabTestsId = $("#tblAddLabTeststfoot select[name='LabTestsId'] option:selected").text();
+        var UnitPrice = $("#tblAddLabTeststfoot input[name='UnitPrice']").val();
+
+        // Create a new row with the obtained values
+        var newRow = "<tr>" +
+            "<td>" + LabId + "</td>" +
+            "<td>" + LabTestsId + "</td>" +
+            "<td>" + UnitPrice + "</td>" +
+            "<td><input type='button' onclick='RemoveHTMLTableRow(this);' value='Remove' class='btn btn-danger btn-xs'></td>" +
+            "</tr>";
+
+        // Append the new row to the tbody
+        $("#tblItemList tbody").append(newRow);
+
+
+        $("#CheckupMedicineDetailsId").val("0");
+        $("#tblAddLabTeststfoot select[name='LabTestsId']").val("0");
+        $("#tblAddLabTeststfoot input[name='UnitPrice']").val("");
+
+    }
+    function RemoveHTMLTableRow(button) {
+
+        // Remove the row
+        $(button).closest('tr').remove();
+    }
+    /* ------ Lab_Test_Add ------ */
+
+</script>

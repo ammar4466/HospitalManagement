@@ -1,0 +1,247 @@
+﻿@using Infrastructure.Model;
+@model List<checkupVM>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="content-wrapper" style="min-height: 200.1px;">
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="wrapper">
+                <div class="panel panel-hash">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="fa fa-plus-square fa-2x" onclick="AddEdit(0)"></a>
+                            </div>
+                            <div class="col-md-6 pull-right">
+                                <h5 class="pull-right"><b>&nbsp;Checkup Summary List</b></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body scroll panel-height">
+                        <div id="tblCheckupSummary_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="data-table-options">
+                                <div class="row-options">
+                                    <ul id="rowOptionsList" class="rows-list">
+                                        <li class="row-option" data-value="10">10 rows</li>
+                                        <li class="row-option" data-value="20" style="display: none;">20 rows</li>
+                                        <li class="row-option" data-value="50" style="display: none;">50 rows</li>
+                                        <li class="row-option" data-value="100" style="display: none;">100 rows</li>
+                                    </ul>
+                                </div>
+                                <div class="search-filter">
+                                    <label for="searchInput">Search:</label>
+                                    <input type="search" id="searchInput" class="search-input" placeholder="">
+                                </div>
+                                <div class="processing-indicator" style="display: none;">Processing...</div>
+                            </div>
+
+
+                            <table id="tblCheckupSummary" class="ItemTranTable dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="tblCheckupSummary_info">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Visit Id</th>
+                                        <th>Serial No</th>
+                                        <th>Patient Name</th>
+                                        <th>Doctor Name</th>
+                                        <th>Symptoms</th>
+                                        <th>Diagnosis</th>
+                                        <th>Advice</th>
+                                        <th>Checkup Date</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table><nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li class="page-item @((int)ViewData["Page"] == 1 ? "disabled" : "")">
+                                        <a class="page-link" href="/Item/Index?page=@((int)ViewData["Page"] - 1)&pageSize=@ViewData["PageSize"]" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
+                                    {
+                                        <li class="page-item @(i == (int)ViewData["Page"] ? "active" : "")">
+                                            <a class="page-link" href="/Item/Index?page=@i&pageSize=@ViewData["PageSize"]">@i</a>
+                                        </li>
+                                    }
+
+                                    <li class="page-item @(ViewData["Page"] == ViewData["TotalPages"] ? "disabled" : "")">
+                                        <a class="page-link" href="/Item/Index?page=@((int)ViewData["Page"] + 1)&pageSize=@ViewData["PageSize"]" aria-label="Next">
+
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </main>
+</div>
+<style>
+    .rows-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .row-option {
+        cursor: pointer;
+        padding: 5px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        margin-bottom: 10px;
+    }
+
+        .row-option:hover {
+            background-color: #f0f0f0;
+        }
+
+    .rows-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-width: 200px; /* Adjust the width as per your requirement */
+    }
+
+    .row-option {
+        cursor: pointer;
+        padding: 5px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        margin-bottom: 10px;
+        width: 100%; /* Ensure each row option takes the full width of the list */
+    }
+
+
+</style>
+<script src="~/js/datatables.js"></script>
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            loadCheckUpList();
+        });
+        $(document).ready(function () {
+            $('.row-option').on('click', function () {
+                $(this).nextAll('.row-option').show();
+                var value = $(this).data('value');
+                // Perform action when a different number of rows is selected
+                console.log(value + ' rows selected');
+            });
+        });
+
+
+
+        var loadCheckUpList = () => {
+            $.post('/CheckUP/CheckupList').done((res) => {
+                $("#tblCheckupSummary_wrapper tbody").html(res);
+            });
+        };
+
+        var AddEdit = (id) => {
+            $.post('/CheckUP/AddCheckup', { Id: id }).done((response) => {
+                let _title = id == '0' ? 'Add' : 'Edit';
+                Q.alert({
+                    title: _title,
+                    body: response,
+                    width: 1300,
+                    top: 30,
+                });
+            }).fail((xhr) => {
+                Q.notify(-1, 'Server Error!');
+            });
+        };
+
+        var Details = (id) => {
+            $.post('/CheckUP/CheckupDetails', { Id: id }).done((response) => {
+                Q.alert({
+                    title: "Checkup Details",
+                    body: response,
+                    width: 1300,
+                    top: 30,
+                });
+            }).fail((xhr) => {
+                Q.notify(-1, 'Server Error!');
+            });
+        };
+
+        //var SaveCheckup = () => {
+        //    var medicineDetails = [];
+        //    $('#tblMedicineDetails tbody tr').each(function () {
+        //        var medicineDetail = {
+        //            Id: $(this).find('input[name="CheckUPId"]').val(),
+        //            Medicine: $(this).find('select[name="Medicine"]').val(),
+        //            NoOfDays: $(this).find('input[name="NoOfDays"]').val(),
+        //            WhenToTake: $(this).find('input[name="WhenToTake"]').val(),
+        //            IsBeforeMeal: $(this).find('input[name="IsBeforeMeal"]').prop('checked'),
+        //        };
+        //        medicineDetails.push(medicineDetail);
+        //    });
+
+        //    let obj = {
+        //        Id: $("#Id").val(),
+        //        VisitId: $("#VisitId").val(),
+        //        PatientId: $("#PatientId").val(),
+        //        PatientType: $("#PatientType").val(),
+        //        DoctorId: $("#DoctorId").val(),
+        //        CheckupDate: $("#CheckupDate").val(),
+        //        NextVisitDate: $("#NextVisitDate").val(),
+        //        Advice: $("#Advice").val(),
+        //        Comments: $("#Comments").val(),
+        //        Symptoms: $("#Symptoms").val(),
+        //        Diagnosis: $("#Diagnosis").val(),
+        //        VitalSigns: $("#VitalSigns").val(),
+        //        HPI: $("#HPI").val(),
+        //        PhysicalExamination: $("#PhysicalExamination").val(),
+        //        Medicine: medicineDetails,
+        //        BPSystolic: $("#BPSystolic").val(),
+        //        BPDiastolic: $("#BPDiastolic").val(),
+        //        RespirationRate: $("#RespirationRate").val(),
+        //        Temperature: $("#Temperature").val(),
+        //        NursingNotes: $("#NursingNotes").val(),
+        //    };
+
+        //    $.post('/CheckUP/SaveCheckup', obj).done((res) => {
+        //        Q.notify(res.statusCode, res.msg);
+        //        if (res.statusCode == 1) {
+        //            $('.ui-dialog-titlebar-close').click();
+        //            loadCheckUpList();
+        //        }
+        //    }).fail((xhr) => {
+        //        Q.notify(-1, 'server error');
+        //    });
+        //};
+
+        var SaveLABSpecification = () => {
+            debugger;
+            let obj = {
+                LabId: $("#LabId").val(),
+                TestName: $("#TestName").val(),
+                UnitPrice: $("#UnitPrice").val(),
+            };
+            $.post('/CheckUP/SaveLABSpecification', obj).done((res) => {
+                if (res.statusCode == 1) {
+                    Q.notify(res.statusCode, res.msg);
+                }
+            }).fail((xhr) => {
+                Q.notify(-1, 'server error');
+            });
+        };
+    </script>
+
+}

@@ -1,0 +1,103 @@
+﻿@using Infrastructure.Model;
+@model CombinedModels
+
+@{
+    var patientlist = new SelectList(Model.PatientVM.patients, "PatientId", "FullName");
+    var doctorlist = new SelectList(Model.PatientVM.doctors, "DoctorId", "FullName");
+}
+
+<div class="">
+    @*<div class="modal-header">
+    <div class="col-md-8">
+    <h3 id="titleBigModal" class="modal-title">Add Patient Appointment</h3>
+    </div>
+    <div class="col-md-pull-4 pull-right">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+    </div>
+    </div>*@
+    <div class="modal-body" id="BigModalDiv">
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="hidden" asp-for="@Model.PatientApointment.Id" id="hdn" />
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="PatientId">Patient Name</label>
+                        <div class="col-sm-9">
+                            <select asp-items="@patientlist" class="form-control" asp-for="@Model.PatientApointment.PatientId" id="pn">
+                                <option value="0">:: Select ::</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="PatientType">Patient Type</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" asp-for="PatientApointment.PatientType" id="pt">
+                                <option value="1">Out Patient</option>
+                                <option value="2">In Patient</option>
+                            </select>
+                            <span class="text-danger field-validation-valid" asp-validation-for="PatientApointment.PatientType"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="DoctorId">Doctor Name</label>
+                        <div class="col-sm-9">
+                            <select asp-items="@doctorlist" class="form-control" asp-for="@Model.PatientApointment.DoctorId" id="di">
+                                <option value="0">:: SELECT ::</option>
+                            </select>
+                            <span class="text-danger field-validation-valid" asp-validation-for="PatientApointment.DoctorId"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="SerialNo">Serial No</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="number" asp-for="@Model.PatientApointment.SerialNo" id="sn" />
+                            <span class="text-danger field-validation-valid" asp-validation-for="PatientApointment.SerialNo"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="SerialNo">AppointmentDate</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" asp-for="@Model.PatientApointment.AppointmentDate" id="ad" />
+                            <span class="text-danger field-validation-valid" asp-validation-for="PatientApointment.AppointmentDate"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="SerialNo">AppointmentTime</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="time" asp-for="@Model.PatientApointment.AppointmentTime" id="at" />
+                            <span class="text-danger field-validation-valid" asp-validation-for="PatientApointment.AppointmentTime"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="SerialNo">Note</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" type="text" asp-for="@Model.PatientApointment.Note" id="nt"></textarea>
+                            <span class="text-danger field-validation-valid" asp-validation-for="PatientApointment.Note"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input type="submit" value="Save" class="btn btn-info" onclick="SaveAppointment()">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        // Datepicker initialization
+        $("#ad").datepicker();
+    });
+    var currentDateTime = new Date();
+    var formattedDateTime = currentDateTime.toISOString().slice(0, 16);
+    document.getElementById("AppointmentTime").value = formattedDateTime;
+</script>

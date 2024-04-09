@@ -1,0 +1,28 @@
+﻿@using Infrastructure.Model;
+@model List<MedicineCategory>
+@if (Model.Any())
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>@i</td>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.CreatedDate</td>
+            <td>
+                <button class="btn btn-info" onclick="AddEdit(@item.Id)" style="font-size:small"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            </td>
+            <td>
+                <button class="btn btn-danger" onclick="DelMcat(@item.Id)" style="font-size:small"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td class="text-danger text-center" colspan="6">No Record Found</td>
+    </tr>
+}

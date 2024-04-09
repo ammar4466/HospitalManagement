@@ -1,0 +1,182 @@
+﻿@using Infrastructure.Model;
+@model checkupVM
+<div class="modal-content">
+    @*<div class="modal-header">
+        <div class="col-md-8">
+            <h3 id="titleExtraBigModal" class="modal-title">Checkup Details</h3>
+        </div>
+        <div class="col-md-pull-4 pull-right">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+        </div>
+    </div>*@
+    <div class="modal-body" id="ExtraBigModalDiv">
+        <div class="col-sm-12">
+            <div class="panel-footer text-right">
+                <button class="btn btn-info" onclick="printDiv('printableArea')"><span class="fa fa-print"></span></button>
+            </div>
+        </div>
+
+
+        <div id="printableArea">
+            <div class="row">
+                <div class="col-sm-9">
+                    <address style="margin-top:1px">
+                        <strong>XYZ Company Limited</strong>
+                        <br>Dhaka, Bangladesh<br>
+                        <abbr><b>Mobile: </b></abbr>132546789<br>
+                        <abbr><b>Email: </b></abbr>XYZ@GMAIL.COM<br>
+                        <abbr><b>Website: </b></abbr>www.wyx.com
+                    </address>
+                </div>
+                <div class="col-sm-3">
+                    <address style="margin-top:1px">
+                        <abbr><b>Patient Name: </b></abbr>Nisi Kant<br>
+                        <abbr><b>Patient Type: </b></abbr>Out Patient<br>
+                        <abbr><b>Patient Code: </b></abbr>P20240129185227<br>
+                        <abbr><b>Blood Group: </b></abbr><br>
+                        <abbr><b>Phone: </b></abbr><br>
+                        <abbr><b>Address: </b></abbr>
+                    </address>
+                    <div class="m-b-15"><strong>Print Date </strong>: 03 February 2024</div>
+                </div>
+            </div>
+
+
+            <br>
+            <h4><i class="nav-icon fas fa-walking"></i> Visit Id: V20240131140023374</h4>
+            <h4><i class="nav-icon fas fa-stethoscope"></i> Checkup Date: 01/31/2024 13:59:49</h4>
+            <hr>
+
+
+            <div class="col-sm-12">
+                <div class="row">
+                    <sapn><b>Checkup Summary</b></sapn>
+                    <hr>
+                    <div class="row" style="width:100%; margin:0 auto;">
+                        <table class="ItemTranTable">
+                            <tbody>
+                                <tr><th>Id</th><td style="width:70%;">@Model.Id</td></tr>
+                                <tr><th>Doctor Name</th><td>@Model.DoctorName</td></tr>
+                                <tr><th>Symptoms</th><td>@Model.Symptoms</td></tr>
+                                <tr><th>Diagnosis</th><td>@Model.Diagnosis</td></tr>
+                                <tr><th>Vital Signs</th><td>@Model.VitalSigns</td></tr>
+                                <tr><th>HPI</th><td>@Model.HPI\</td></tr>
+                                <tr><th>Physical Examination</th><td>@Model.PhysicalExamination</td></tr>
+                                <tr><th>Advice</th><td>@Model.Advice</td></tr>
+                                <tr><th>Comments</th><td>@Model.Comments</td></tr>
+                                <tr><th>Next Visit Date</th><td>@Model.NextVisitDate</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <sapn><b>Vital Signs</b></sapn>
+                    <hr>
+                    <div class="row" style="width:100%; margin:0 auto;">
+                        <table class="ItemTranTable">
+                            <tbody>
+                                <tr><th>BP Systolic</th><td style="width:70%;">@Model.BPSystolic</td></tr>
+                                <tr><th>BP Diastolic</th><td>@Model.BPDiastolic</td></tr>
+                                <tr><th>Respiration Rate</th><td>@Model.RespirationRate</td></tr>
+                                <tr><th>Temperature(°F)</th><td>@Model.Temperature</td></tr>
+                                <tr><th>Nursing Notes</th><td>@Model.NursingNotes</td></tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <br>
+                <sapn><b>Checkup Medicine Details</b></sapn>
+                <hr>
+                <div class="row" style="width:100%; margin:0 auto;">
+                    <table class="CustomBlueTable" border="1">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Medicine Name</th>
+                                <th>No of Days</th>
+                                <th>When to Take</th>
+                                <th>Is Before Meal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    @Model.Medicine
+                                </td>
+                                <td>
+                                    @Model.NoOfDays
+                                </td>
+                                <td>
+                                    @Model.WhenToTake
+                                </td>
+                                <td>
+                                    <span>@(Model.IsBeforeMeal ? "No" : "Yes")</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <br>
+                <sapn><b>Patient Test Detail</b></sapn>
+                <hr>
+
+
+                <abbr><b>Test Date: </b></abbr>01/31/2024 14:00:24
+                <br>
+                <abbr><b>Delivery Date: </b></abbr>01/31/2024 14:00:24
+                <br>
+                <abbr><b>Payment Status: </b></abbr>Unpaid
+                <br>
+                <div class="row" style="width:100%; margin:0 auto;">
+                    <table class="CustomBlueTable" style="width:100%" border="1">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Lab Tests Id</th>
+                                <th>Unit Price</th>
+                                <th>Result</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Model.LabId
+                                </td>
+                                <td>
+                                    @Model.TestName
+                                </td>
+                                <td>
+                                    @Model.UnitPrice
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>

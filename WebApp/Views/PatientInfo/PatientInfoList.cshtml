@@ -1,0 +1,35 @@
+﻿@using Infrastructure.Model;
+@model List<PatientInfo>
+@if (Model.Any())
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>@i</td>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.MaritalStatus</td>
+            <td>@item.Gender</td>
+            <td>@item.SpouseName</td>
+            <td>@item.BloodGroup</td>
+            <td>@item.DOB</td>
+            <td>
+                <button class="btn btn-info" onclick="AddCheckup(@item.PatientId)" style="font-size:small">New Checkup</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modalPopup" onclick="AddEditPatientInfo(@item.PatientId)" style="font-size:small">Edit</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" onclick="DelPatient(@item.PatientId)" style="font-size:small">Delete</button>
+            </td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td class="text-danger" colspan="11">No Record Found</td>
+    </tr>
+}

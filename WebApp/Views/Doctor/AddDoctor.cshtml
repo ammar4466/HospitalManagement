@@ -1,0 +1,134 @@
+﻿@using Infrastructure.Model;
+@model DoctorInfo
+<div class="modal-content">
+    @* <div class="modal-header">
+    <div class="col-md-8">
+    <h3 id="titleExtraBigModal" class="modal-title">Add Doctors Info</h3>
+    </div>
+    <div class="col-md-pull-4 pull-right">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+    </div>
+    </div>*@
+    <div class="modal-body" id="ExtraBigModalDiv">
+
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-6 col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">First Name</label>
+                                <div class="col-sm-9">
+                                    <input type="hidden" asp-for="DoctorId" />
+                                    <input asp-for="FirstName" class="form-control">
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">Last Name</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="LastName" class="form-control">
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">PhoneNumber</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="PhoneNumber" class="form-control">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">Email</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Email" class="form-control">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">Password</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Password" class="form-control">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="FirstName">ConfirmPassword</label>
+                                <div class="col-sm-8">
+                                    <input asp-for="ConfirmPassword" class="form-control">
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-sm-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">DoctorFee</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="DoctorFee" class="form-control">
+                                    <span asp-validation-for="DoctorFee" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="DesignationId">Designation</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="Designation" class="form-control">
+                                        <option>--- SELECT ---</option>
+                                        <option value="1">MBBS</option>
+                                        <option value="5">Pharmacist</option>
+                                    </select>
+                                    <span asp-validation-for="Designation" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">Address</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Address" class="form-control">
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">Country</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Country" class="form-control">
+                                    <span asp-validation-for="Country" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">ProfilePicture</label>
+                                <div class="col-sm-9">
+                                    <input type="file" asp-for="ProfilePicture" class="form-control">
+                                    <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="FirstName">RoleId</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="RoleId" class="form-control">
+                                        <option>--- SELECT ---</option>
+                                        <option value="1">Admin</option>
+                                        <option value="2">General</option>
+                                        <option value="3">Doctor</option>
+                                        <option value="4">Patient</option>
+                                    </select>
+                                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-9">
+                <input type="submit" value="Save" class="btn btn-info" onclick="savedoctor()">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>

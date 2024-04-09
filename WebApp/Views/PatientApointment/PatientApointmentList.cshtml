@@ -1,0 +1,36 @@
+﻿@using Infrastructure.Model;
+@model PagedPatientAppointmentsResult
+@if (Model.Items.Any())
+{
+    int i = 0;
+    foreach (var item in Model.Items)
+    {
+        i++;
+        <tr>
+            <td>@i</td>
+            <td>@item.PatientName</td>
+            <td>@item.PatientType</td>
+            <td>@item.DoctorName</td>
+            <td>@item.SerialNo</td>
+            <td>@item.AppointmentDate</td>
+            <td>@item.AppointmentTime</td>
+            <td>@item.Note</td>
+            <td>@item.EntryOn</td>
+            <td>
+                <button class="btn btn-primary" onclick="AddEditAppointment(@item.Id)" style="font-size:small">Edit</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" onclick="DelAppointment(@item.Id)" style="font-size:small">Delete</button>
+            </td>
+
+
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td class="text-danger" colspan="11">No Record Found</td>
+    </tr>
+
+}

@@ -1,0 +1,38 @@
+﻿@using Infrastructure.Model;
+@model List<checkupVM>
+@if (Model.Any())
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>@i</td>
+            <td>
+               <a href="#" onclick="Details(@item.Id);">@item.VisitId</a>
+            </td>
+            <td>@item.SerialNo</td>
+            <td>@item.PatientName</td>
+            <td>@item.DoctorName</td>
+            <td>@item.Symptoms</td>
+            <td>@item.Diagnosis</td>
+            <td>@item.Advice</td>
+            <td>@item.CheckupDate</td>
+            <td></td>
+            <td></td>
+            <td>
+                <button class="btn btn-info" onclick="AddEdit(@item.PatientId)" style="font-size:small"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            </td>
+            <td>
+                <button class="btn btn-danger" onclick="deleteMedi(@item.Id)" style="font-size:small"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    }
+
+}
+else
+{
+    <tr>
+        <td class="text-center text-danger" colspan="12">No Record Found</td>
+    </tr>
+}

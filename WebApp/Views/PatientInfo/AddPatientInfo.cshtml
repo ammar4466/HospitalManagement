@@ -1,0 +1,236 @@
+﻿@using Infrastructure.Model;
+@model PatientInfo
+<div class="container-fluid">
+    <div class="modal-header">
+    <div class="col-md-8">
+    <h3 id="titleExtraBigModal" class="modal-title">Add Patient Info</h3>
+    </div>
+    <div class="col-md-pull-4 pull-right">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+    </div>
+    </div>
+    <div class="modal-body" id="ExtraBigModalDiv">
+        <div>
+            <div class="col-12 col-sm-12">
+                <div class="card card-primary card-outline card-tabs">
+                    <div class="card-header p-0 pt-1 border-bottom-0">
+                        <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="BasicInfo" data-toggle="pill" href="#divBasicInfo" role="tab" aria-controls="BasicInfo" aria-selected="true">Basic Info</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="OtherTab" data-toggle="pill" href="#divOtherTab" role="tab" aria-controls="OtherTab" aria-selected="false">Other Info</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="tabContent">
+                            <div class="tab-pane fade show active" id="divBasicInfo" role="tabpanel" aria-labelledby="divBasicInfo">
+                                <div class="row">
+                                    <div class="col-4 col-sm-4">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="FirstName">First Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="hidden" asp-for="PatientId" />
+                                                <input type="text" class="form-control" asp-for="@Model.FirstName">
+                                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="LastName">Last Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" asp-for="LastName">
+                                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="Email">Email</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" asp-for="Email">
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Password</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="number" asp-for="Password">
+                                                <span asp-validation-for="Password" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+                                    <div class="col-4 col-sm-4">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Confirm Password</label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control" asp-for="ConfirmPassword">
+                                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="MaritalStatus">Marital Status</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" asp-for="MaritalStatus" id="MaritalStatus" name="MaritalStatus">
+                                                    <option disabled="" selected="">--- SELECT ---</option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Divorced">Divorced</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                                <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="Gender">Gender</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" asp-for="Gender" id="Gender" name="Gender">
+                                                    <option disabled="" selected="">--- SELECT ---</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                                <span asp-validation-for="Gender" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="DateOfBirth">Date Of Birth</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" asp-for="DOB">
+                                                <span asp-validation-for="DOB" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-sm-4">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="SpouseName">Spouse Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" asp-for="SpouseName">
+                                                <span asp-validation-for="SpouseName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="BloodGroup">Blood Group</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" asp-for="@Model.BloodGroup" id="BloodGroup" name="BloodGroup">
+                                                    <option disabled="" selected="">--- SELECT ---</option>
+                                                    <option value="A+">A+</option>
+                                                    <option value="A-">A-</option>
+                                                    <option value="B+">B+</option>
+                                                    <option value="B-">B-</option>
+                                                    <option value="O+">O+</option>
+                                                    <option value="O-">O-</option>
+                                                    <option value="AB+">AB+</option>
+                                                    <option value="AB-">AB-</option>
+                                                </select>
+                                                <span asp-validation-for="BloodGroup" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="FatherName">Father Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" asp-for="FatherName">
+                                                <span asp-validation-for="FatherName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="MotherName">Mother Name</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="text" asp-for="MotherName">
+                                                <span asp-validation-for="MotherName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="divOtherTab" role="tabpanel" aria-labelledby="divOtherTab">
+                                <div class="row">
+                                    <div class="col-6 col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="RegistrationFee">Registration Fee</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" asp-for="RegistrationFee">
+                                                <span asp-validation-for="RegistrationFee" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="Phone">Phone</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" asp-for="Phone">
+                                                <span asp-validation-for="Phone" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="Country">Country</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" asp-for="Country">
+                                                <span asp-validation-for="Country" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="Address">Address</label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" asp-for="Address"></textarea>
+                                                <span asp-validation-for="Address" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-sm-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="Agreement">Agreement</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" asp-for="Agreement">
+                                                    <option disabled="" selected="">--- SELECT ---</option>
+                                                    <option value="true">Yes</option>
+                                                    <option value="false">No</option>
+                                                </select>
+                                                <span asp-validation-for="Agreement" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="Remarks">Remarks</label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" asp-for="Remark"></textarea>
+                                                <span asp-validation-for="Remark" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="button" id="btnSave" value="Save" onclick="SavePatientInfo()" class="btn btn-info">
+                            <button type="button" id="btnClose" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        function initializeDatepicker() {
+            $("#DOB").datepicker();
+        }
+
+        initializeDatepicker();
+
+        $(document).ajaxComplete(function () {
+            initializeDatepicker();
+        });
+    });
+</script>
+

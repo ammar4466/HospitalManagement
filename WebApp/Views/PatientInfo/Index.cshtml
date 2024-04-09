@@ -1,0 +1,184 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    #modalPopup .modal-dialog {
+        max-width: 90%; 
+    }
+
+    #modalPopup .modal-dialog {
+        margin: 0% auto;
+    }
+}
+</style>
+<div class="content-wrapper" style="min-height: 200.1px;">
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="wrapper">
+                <div class="panel panel-hash">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="fa fa-plus-square fa-2x" data-toggle="modal" data-target="#modalPopup" onclick="AddEditPatientInfo(0)"></a>
+                            </div>
+                            <div class="col-md-6 pull-right">
+                                <h5 class="pull-right"><b>&nbsp;PatientInfo List</b></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body scroll panel-height">
+                        <div id="tblPatientInfo_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="dt-buttons">
+                                <button class="dt-button buttons-collection buttons-page-length" tabindex="0" aria-controls="tblPatientInfo" type="button" aria-haspopup="true"><span>Show 20 rows</span></button>
+                            </div>
+                            <div id="tblPatientInfo_filter" class="dataTables_filter">
+                                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="tblPatientInfo"></label>
+                            </div>
+                            <div id="tblPatientInfo_processing" class="dataTables_processing card" style="display: none;">Processing...</div>
+                            <div class="modal" id="modalPopup">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                       
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                           
+                                            <button type="button" class="btn btn-primary" id="btnSubmit" onclick="submit(0)">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="tblPatientInfo" class="ItemTranTable dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="tblPatientInfo_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th style="width: 18px;">#</th>
+                                        <th style="width: 96px;">First Name</th>
+                                        <th style="width: 96px;">Last Name</th>
+                                        <th style="width: 123px;">Marital Status</th>
+                                        <th style="width: 68px;">Gender</th>
+                                        <th style="width: 123px;">Spouse Name</th>
+                                        <th style="width: 103px;">BloodGroup</th>
+                                        <th style="width: 99px;">DOB</th>
+                                        <th style="width: 136px;"></th>
+                                        <th style="width: 73px;"></th>
+                                        <th style="width: 73px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div class="dataTables_info" id="tblPatientInfo_info" role="status" aria-live="polite">Showing 1 to 5 of 5 entries</div>
+                            <div class="dataTables_paginate paging_simple_numbers" id="tblPatientInfo_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button page-item previous disabled" id="tblPatientInfo_previous">
+                                        <a href="#" aria-controls="tblPatientInfo" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                    </li>
+                                    <li class="paginate_button page-item active">
+                                        <a href="#" aria-controls="tblPatientInfo" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                    </li>
+                                    <li class="paginate_button page-item next disabled" id="tblPatientInfo_next">
+                                        <a href="#" aria-controls="tblPatientInfo" data-dt-idx="2" tabindex="0" class="page-link">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            loadPatientList();
+            $('.datepicker').datepicker({
+                dateFormat: 'dd M yy', // Set the desired date format
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+        function loadPatientList() {
+            $.post("/PatientInfo/PatientInfoList").done(function (res) {
+                $("#tblPatientInfo tbody").html(res);
+            }).fail(function (xhr) {
+                Q.notify(-1, 'Server Error');
+            })
+        }
+        var AddEditPatientInfo = (id) => {
+            Q.preloader.load();
+            $.post('/PatientInfo/AddPatientInfo', { PatientId: id }).done((response) => {
+                //$("#pv").html(response);
+                //let _title = id == '0' ? 'Add' : 'Edit';
+                //Q.alert({
+                //    title: _title,
+                //    body: response,
+                //    width: 1200
+                //});
+                let modal = $('#modalPopup');
+                modal.find('.modal-body').html(response);
+                modal.modal({
+                    backdrop: false,
+                    show: true
+                });
+               
+                Q.preloader.remove();
+            }).fail((xhr) => {
+                console.error(xhr.responseText);
+                Q.notify(-1, 'Server Error!');
+            });
+        }
+        var SavePatientInfo = () => {
+            let obj = {
+                PatientId: $("#PatientId").val(),
+                FirstName: $("#FirstName").val(),
+                LastName: $("#LastName").val(),
+                Email: $("#Email").val(),
+                Password: $("#Password").val(),
+                ConfirmPassword: $("#ConfirmPassword").val(),
+                MaritalStatus: $("#MaritalStatus").val(),
+                Gender: $("#Gender").val(),
+                DOB: $("#DOB").val(),
+                SpouseName: $("#SpouseName").val(),
+                BloodGroup: $("#BloodGroup").val(),
+                FatherName: $("#FatherName").val(),
+                MotherName: $("#MotherName").val(),
+                RegistrationFee: $("#RegistrationFee").val(),
+                Phone: $("#Phone").val(),
+                Country: $("#Country").val(),
+                Address: $("#Address").val(),
+                Agreement: $("#Agreement").val(),
+                Remark: $("#Remark").val(),
+            };
+            $.post("/PatientInfo/SavePatientInfo", obj).done((response) => {
+                Q.notify(response.statusCode, response.msg);
+                if (response.statusCode == 1) {
+                   // $('.ui-dialog-titlebar-close').click();
+                    $('#modalPopup').click();
+                    loadPatientList();
+                }
+            }).fail((xhr) => {
+                console.error(xhr.msg);
+                Q.notify(-1, 'Server Error');
+            })
+        }
+
+        var DelPatient = (PatientId) => Q.confirm("Are You Sure. You Want To Delete PatientInfo", () => deletePatient(PatientId), { width: "500px" });
+        var deletePatient = function (PatientId) {
+            $.post('/PatientInfo/DeletePatientInfo', { PatientId: PatientId }).done((response) => {
+                Q.notify(response.statusCode, response.msg);
+                if (response.statusCode == 1) {
+                    loadPatientList();
+                }
+            });
+        };
+
+
+    </script>
+}
+
+
+

@@ -1,0 +1,454 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="content-wrapper" style="min-height: 200.1px;">
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <input type="hidden" value="PatientPaymentsList" id="PatientPaymentsListType">
+            <div class="wrapper">
+
+                <hr>
+                <section class="content">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/PatientInfo/Index">
+                                <div class="info-box">
+                                    <span class="box"><img src="~/images/Patient.png"></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Patient</span>
+                                        <h2>5</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/UserManagement/IndexNurse">
+                                <div class="info-box">
+                                    <span class="box"><img src="/images/nurse.png"></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Nurse</span>
+                                        <h2>3</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/UserManagement/IndexPharmacist">
+                                <div class="info-box">
+                                    <span class="box"><img src="/images/pharmacist.png"></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Pharmacist</span>
+                                        <h2>3</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/UserManagement/IndexAccountants">
+                                <div class="info-box">
+                                    <span class="box"><img src="/images/accountant.png"></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Accountant</span>
+                                        <h2>3</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/Doctor/Index">
+                                <div class="info-box">
+                                    <span class="box"><img src="/images/doctor.png"></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Doctor</span>
+                                        <h2>7</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/UserManagement/IndexLaboraties">
+                                <div class="info-box">
+                                    <span class="box"><img src="/images/medical-laboratory.png"></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Laboratorist</span>
+                                        <h2>3</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/Medicines/Index">
+                                <div class="info-box">
+                                    <span class="box"><img src="/images/medicine.png"></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Medicines</span>
+                                        <h2>5</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="/Bed/Index">
+                                <div class="info-box">
+                                    <span class="box"><img src="/images/hospital-bed.png"></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Beds</span>
+                                        <h2>5</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <hr>
+
+                <div class="panel panel-hash">
+                    <div class="panel-heading"><h4><b>Recent Payments</b></h4></div>
+                    <div class="panel-body scroll panel-height">
+                        <table class="CustomBlueTable">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Patient</th>
+                                    <th>Discount(%)</th>
+                                    <th>Tax(%)</th>
+                                    <th>Sub Total</th>
+                                    <th>Grand Total</th>
+                                    <th>CreatedDate</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>13</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('13')">Ms Clinton</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>22</td>
+                                    <td>22</td>
+                                    <td>26 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('13')">INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('12')">ยยย นนนน</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>366</td>
+                                    <td>26 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('12')">INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('11')">Mr Tom</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>300</td>
+                                    <td>23 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('11')">INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('10')">Ms Clinton</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>300</td>
+                                    <td>23 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('10')">INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('9')">Ms Clinton</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>300</td>
+                                    <td>23 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('9')">INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('8')">ยยย นนนน</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>498</td>
+                                    <td>22 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('8')">INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('7')">Ms Clinton</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>800</td>
+                                    <td>800</td>
+                                    <td>20 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('7')">INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('6')">Ms Clinton</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>800</td>
+                                    <td>800</td>
+                                    <td>20 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('6')">INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('5')">Ms Clinton</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>800</td>
+                                    <td>800</td>
+                                    <td>20 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('5')">INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('4')">Ms Clinton</a>
+                                    </td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>300</td>
+                                    <td>20 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintPaymentInvoice('4')">INVOICE</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br><br>
+                    </div>
+                </div>
+                <script src="/js/Payments/Payments_CRUD.js"></script>
+
+                <hr>
+
+                <div class="panel panel-hash">
+                    <div class="panel-heading"><h4><b>Recent Checkup</b></h4></div>
+                    <div class="panel-body scroll panel-height">
+                        <table class="BlueGreen">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Patient Name</th>
+                                    <th>Doctor Name</th>
+                                    <th>Symptoms</th>
+                                    <th>Diagnosis</th>
+                                    <th>Advice</th>
+                                    <th>Checkup Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>9</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('9')">ยยย นนนน</a>
+                                    </td>
+                                    <td>Dr. Genefar</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>26 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintCheckup('9')"><span class="fa fa-print">Print</span></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('8')">Mr Tom</a>
+                                    </td>
+                                    <td>Dr. Robert</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>23 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintCheckup('8')"><span class="fa fa-print">Print</span></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('7')">Ms Clinton</a>
+                                    </td>
+                                    <td>Dr. Robert</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>23 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintCheckup('7')"><span class="fa fa-print">Print</span></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('6')">Ms Clinton</a>
+                                    </td>
+                                    <td>Dr. Robert</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>23 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintCheckup('6')"><span class="fa fa-print">Print</span></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('5')">ยยย นนนน</a>
+                                    </td>
+                                    <td>Dr. Genefar</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>22 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintCheckup('5')"><span class="fa fa-print">Print</span></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('4')">Ms Clinton</a>
+                                    </td>
+                                    <td>Dr. Robert</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>20 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintCheckup('4')"><span class="fa fa-print">Print</span></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('2')">Shahed Islam</a>
+                                    </td>
+                                    <td>Dr. Genefar</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>15 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintCheckup('2')"><span class="fa fa-print">Print</span></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="Details('1')">Shahed Islam</a>
+                                    </td>
+                                    <td>Dr. Robert</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>15 October 2023</td>
+                                    <td>
+                                        <a href="#" class="btn btn-link btn-xs" onclick="PrintCheckup('1')"><span class="fa fa-print">Print</span></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br><br>
+                    </div>
+                </div>
+
+                <script src="/js/CheckupSummary/CheckupSummary_CRUD.js"></script>
+
+
+
+                <div class="col-xs-12">
+                    <div class="panel panel-bd" style="background-color:white;">
+                        <div class="panel-body">
+                            <div class="statistic-box">
+                                <div id="containerPIE" style="min-width: 400px; height: 400px; margin: 0px auto; overflow: hidden;" data-highcharts-chart="0"><div id="highcharts-wnlfh0p-0" style="position: relative; overflow: hidden; width: 1068px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; left: 0.5px; top: 0.400024px;" dir="ltr" class="highcharts-container "><svg version="1.1" class="highcharts-root" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="1068" height="400" viewBox="0 0 1068 400"><desc>Created with Highcharts 9.0.1</desc><defs><clipPath id="highcharts-wnlfh0p-5-"><rect x="0" y="0" width="1048" height="332" fill="none"></rect></clipPath></defs><rect fill="#ffffff" class="highcharts-background" x="0" y="0" width="1068" height="400" rx="0" ry="0"></rect><rect fill="none" class="highcharts-plot-background" x="10" y="53" width="1048" height="332"></rect><rect fill="none" class="highcharts-plot-border" data-z-index="1" x="10" y="53" width="1048" height="332"></rect><g class="highcharts-series-group" data-z-index="3"><g class="highcharts-series highcharts-series-0 highcharts-pie-series highcharts-tracker" data-z-index="0.1" opacity="1" transform="translate(10,53) scale(1 1)" style="cursor:pointer;"><path fill="#7cb5ec" d="M 523.9714857514826 42.00000290379421 A 140 140 0 0 1 523.8314857919769 42.00010141803068 L 524 182 A 0 0 0 0 0 524 182 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-0"></path><path fill="#434348" d="M 523.9714857514826 42.00000290379421 A 140 140 0 0 1 663.9411341256902 186.05943094726254 L 524 182 A 0 0 0 0 0 524 182 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-1"></path><path fill="#90ed7d" d="M 663.9370047248583 186.1993700283494 A 140 140 0 0 1 583.2254257764099 308.8556224280302 L 524 182 A 0 0 0 0 0 524 182 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-2"></path><path fill="#f7a35c" d="M 583.0985405624141 308.9147844161298 A 140 140 0 1 1 523.80554280867 42.00013504863392 L 524 182 A 0 0 0 1 0 524 182 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-3"></path></g><g class="highcharts-markers highcharts-series-0 highcharts-pie-series" data-z-index="0.1" opacity="1" transform="translate(10,53) scale(1 1)"></g></g><text x="534" text-anchor="middle" class="highcharts-title" data-z-index="4" style="color:#333333;font-size:18px;fill:#333333;" y="24">Total Payment Items:  9665</text><text x="534" text-anchor="middle" class="highcharts-subtitle" data-z-index="4" style="color:#666666;fill:#666666;" y="52"></text><text x="10" text-anchor="start" class="highcharts-caption" data-z-index="4" style="color:#666666;fill:#666666;" y="397"></text><g class="highcharts-data-labels highcharts-series-0 highcharts-pie-series highcharts-tracker" data-z-index="6" opacity="1" transform="translate(10,53) scale(1 1)" style="cursor:pointer;"><path fill="none" class="highcharts-data-label-connector highcharts-color-0" stroke="#7cb5ec" stroke-width="1" d="M 529 12 C 524 12 524 30 524 36 L 524 42"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-1" stroke="#434348" stroke-width="1" d="M 650.9824064842203 63.59268389023232 C 645.9824064842203 63.59268389023232 633.0666222682439 76.1299291253842 628.7613608629185 80.30901087043482 L 624.4560994575932 84.48809261548544"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-2" stroke="#90ed7d" stroke-width="1" d="M 670.9817361697206 275.4943131651965 C 665.9817361697206 275.4943131651965 650.9483758693973 265.5949153006463 645.9372557692895 262.29511601246287 L 640.9261356691818 258.99531672427946"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-3" stroke="#f7a35c" stroke-width="1" d="M 353.02154335916623 218.7580185963127 C 358.02154335916623 218.7580185963127 375.59573288584284 214.8659930978796 381.45379606140165 213.56865126506855 L 387.31185923696046 212.2713094322575"></path><g class="highcharts-label highcharts-data-label highcharts-data-label-color-0" data-z-index="1" style="cursor:pointer;" transform="translate(534,2)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style=""><tspan style="font-weight:bold;">Consulting Charge</tspan>: 0.0 %<tspan x="5" y="16">​</tspan></tspan><tspan style="font-weight:bold;">Consulting Charge</tspan>: 0.0 %</text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-1" data-z-index="1" style="cursor:pointer;" transform="translate(656,54)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style=""><tspan style="font-weight:bold;">Medicine Item Sell</tspan>: 25.5 %<tspan x="5" y="16">​</tspan></tspan><tspan style="font-weight:bold;">Medicine Item Sell</tspan>: 25.5 %</text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-2" data-z-index="1" style="cursor:pointer;" transform="translate(676,265)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style=""><tspan style="font-weight:bold;">Lab Test Item Sell</tspan>: 17.6 %<tspan x="5" y="16">​</tspan></tspan><tspan style="font-weight:bold;">Lab Test Item Sell</tspan>: 17.6 %</text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-3" data-z-index="1" style="cursor:pointer;" transform="translate(194,209)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style=""><tspan style="font-weight:bold;">Common Item Sell</tspan>: 56.9 %<tspan x="5" y="16">​</tspan></tspan><tspan style="font-weight:bold;">Common Item Sell</tspan>: 56.9 %</text></g></g><g class="highcharts-legend" data-z-index="7"><rect fill="none" class="highcharts-legend-box" rx="0" ry="0" x="0" y="0" width="8" height="8" visibility="hidden"></rect><g data-z-index="1"><g></g></g></g></svg></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="/lib/highcharts.js"></script>
+                <script src="/js/dataHighcharts.js"></script>
+
+                <div id="sidebar-overlay"></div>
+            </div>
+
+            <style>
+                .panel-heading {
+                    padding: 0px 0px 0px 5px;
+                }
+
+                .panel-body {
+                    padding: 5px;
+                }
+
+                .h4 {
+                    margin-top: 1px;
+                    margin-bottom: 1px;
+                }
+            </style>
+
+            <script src="/js/PatientPayment/PatientPayment_CRUD.js"></script>
+            <script src="/js/PatientPayment/PatientPayment_Datatable.js"></script>
+        </div>
+    </main>
+</div>
+

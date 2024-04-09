@@ -1,0 +1,551 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/images/favicon.ico" type="image/gif" sizes="16x16">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Hospital Management</title>
+
+    <link rel="stylesheet" href="~/css/all.min.css">
+    <link rel="stylesheet" href="~/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="~/icheck-bootstrap.min.css">
+
+    <script src="~/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/css/jqvmap.min.css">
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="~/css/daterangepicker.css">
+    <link rel="stylesheet" href="~/css/summernote-bs4.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/datatables.css" rel="stylesheet" />
+    <link href="~/css/buttons.dataTables.css" rel="stylesheet" />
+    <link href="~/css/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/select2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa fa-bars"></i></a>
+                </li>
+            </ul>
+            <p id="panelHeaderElements"></p>
+
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <form id="frmSignOut">
+                        <input type="hidden" id="Longitude" name="Longitude" value="" />
+                        <input type="hidden" id="Latitude" name="Latitude" value="" />
+
+                        <div class="form-group pull-right" style="margin:10px;">
+                            <button type="button" id="btnSignOut" onclick="SignOutAction()" class="btn btn-danger btn-xs">
+                                Sign
+                                out
+                            </button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <script src="~/jquery/jquery.min.js"></script>
+    <script src="~/jquery/LoginOperation.js"></script>
+
+
+    <div class="main-sidebar sidebar-dark-primary elevation-4">
+        <a href="/Dashboard/Index" class="brand-link">
+            <img src='~/images/HMS6.png' alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+            <span class="brand-text font-weight-light">Hospital Mng Sys</span>
+        </a>
+
+        <div class="sidebar">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="~/images/Admin.png" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="/UserProfile/Index" class="d-block">
+                        Super Admin
+                    </a>
+                </div>
+            </div>
+
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active" style="background-color: #FF6E31">
+                            <i class="nav-icon fas fa fa-database"></i>
+                            <p>
+                                Manage Clinic
+                                <i class="right fas fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/PatientInfo/Index" class="nav-link">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    <p>Patient Info</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/PatientApointment/Index" class="nav-link">
+                                    <i class="fa fa-compass" aria-hidden="true"></i>
+                                    <p>Patient Appointment</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/VitalSigns/Index" class="nav-link">
+                                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                                    <p>Nursing Triage</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/CheckUP/Index" class="nav-link">
+                                    <i class="fa fa-stethoscope" aria-hidden="true"></i>
+                                    <p>Checkup</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Doctor/Index" class="nav-link">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    <p>Doctors Info</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/PatientPres/Index" class="nav-link">
+                                    <i class="fa fa-hospital-o" aria-hidden="true"></i>
+                                    <p>Patient Prescriptions</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa fa-money-bill"></i>
+                            <p>
+                                Manage Expense
+                                <i class="right fas fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/PatientPayment/PatientPaymentsList" class="nav-link">
+                                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                                    <p>Patient Payments</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Payments/PaymentsList" class="nav-link">
+                                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                                    <p>Payments</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Expenses/Index" class="nav-link">
+                                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                                    <p>Expenses</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/ExpenseCategories/Index" class="nav-link">
+                                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                                    <p>Expense Categories</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/PaymentCategories/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-money-bill"></i>
+                                    <p>Payment Categories</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/InsuranceCompanyInfo/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-industry"></i>
+                                    <p>Insurance Company Info</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active">
+                            <i class="fa fa-medkit" aria-hidden="true"></i>
+                            <p>
+                                Manage Medicine
+                                <i class="right fas fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/MedicineLabel/Index" class="nav-link">
+                                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                                    <p>Medicine Label</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Medicine/Index" class="nav-link">
+                                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                                    <p>Medicines</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/MedicineCategory/Index" class="nav-link">
+                                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                                    <p>Medicine Categories</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Unit/Index" class="nav-link">
+                                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                                    <p>Unit</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/MedicineManufacture/Index" class="nav-link">
+                                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                                    <p>Medicine Manufacture</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/MedicineHistory/Index" class="nav-link">
+                                    <i class="fa fa-history" aria-hidden="true"></i>
+                                    <p>Medicine History</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active">
+                            <i class="fa fa-bed" aria-hidden="true"></i>
+                            <p>
+                                Manage Bed
+                                <i class="right fas fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/BedAllotments/Index" class="nav-link">
+                                    <i class="fa fa-bed" aria-hidden="true"></i>
+                                    <p>Bed Allotments</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/PatientPayment/PatientPaymentsListInBed" class="nav-link">
+                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                    <p>Patient Payments</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Payments/PaymentsListInBed" class="nav-link">
+                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                    <p>Payments</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Bed/Index" class="nav-link">
+                                    <i class="fa fa-bed" aria-hidden="true"></i>
+                                    <p>Bed</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/BedCategories/Index" class="nav-link">
+                                    <i class="fa fa-bed" aria-hidden="true"></i>
+                                    <p>Bed Categories</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa fa-globe"></i>
+                            <p>
+                                Manage LAB
+                                <i class="right fas fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/PatientTest/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-globe"></i>
+                                    <p>Patient Test</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/LabTests/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-globe"></i>
+                                    <p>Lab Tests</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/LabTestCategories/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-globe"></i>
+                                    <p>Lab Test Categories</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa fa-database"></i>
+                            <p>
+                                Report
+                                <i class="right fas fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/RptServicePayment/Index" class="nav-link">
+                                    <i class="fa fa-database" aria-hidden="true"></i>
+                                    <p>Service Payments Report</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/RptPayments/Index" class="nav-link">
+                                    <i class="fa fa-database" aria-hidden="true"></i>
+                                    <p>Payments Report</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/RptPaymentMode/Index" class="nav-link">
+                                    <i class="fa fa-database" aria-hidden="true"></i>
+                                    <p>Payment Mode Report</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/RptExpenses/Index" class="nav-link">
+                                    <i class="fa fa-database" aria-hidden="true"></i>
+                                    <p>Expenses Report</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <p>
+                                Manage User
+                                <i class="right fas fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/UserManagement/IndexAllUser" class="nav-link">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    <p>All User</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/UserManagement/IndexNurse" class="nav-link">
+                                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                                    <p>Nurse</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/UserManagement/IndexLaboraties" class="nav-link">
+                                    <i class="nav-icon fas fa fa-search"></i>
+                                    <p>Laboraties</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/UserManagement/IndexPharmacist" class="nav-link">
+                                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                                    <p>Pharmacist</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/UserManagement/IndexAccountants" class="nav-link">
+                                    <i class="nav-icon fas fa fa-folder-open"></i>
+                                    <p>Accountants</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active" style="background-color: grey">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            <p>
+                                Manage User Role
+                                <i class="right fas fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/ManageUserRoles/Index" class="nav-link">
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                    <p>Manage User Roles</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/SystemRole/Index" class="nav-link">
+                                    <i class="fa fa-archive" aria-hidden="true"></i>
+                                    <p>System Role</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link active" style="background-color: grey">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                            <p>
+                                Settings
+                                <i class="right fas fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/CompanyInfo/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-compass"></i>
+                                    <p>Company Info</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Currency/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-compass"></i>
+                                    <p>Currency</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/EmailSetting/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-envelope"></i>
+                                    <p>Email Setting</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/IdentitySetting/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-user-secret"></i>
+                                    <p>Identity Setting</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/AuditLogs/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-globe"></i>
+                                    <p>Audit Logs</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/LoginHistory/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-history"></i>
+                                    <p>Login History</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/UserInfoFromBrowser/Index" class="nav-link">
+                                    <i class="nav-icon fas fa fa-clock"></i>
+                                    <p>UserInfo From Browser</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="container-top">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @*<footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2023 - HMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <aside class="control-sidebar control-sidebar-dark">
+    </aside>
+
+    <footer class="main-footer no-print">
+        <div class="row">
+            <div class="col-sm-12 d-none d-sm-inline-block">
+                Copyright © 2021-2022 Zero Byte. All rights reserved
+            </div>
+            <div class="col-sm-12 text-right d-none d-sm-inline-block">
+                Version 1.0.5
+            </div>
+        </div>
+    </footer>
+
+    @* <script>
+    $(document).ready(function () {
+    SetHeaderElements('panelHeaderElements');
+    SetFooterElements('divContactDetails');
+    });
+    </script>*@
+    <script src="~/jquery/jquery-ui.min.js"></script>
+    <script src="~/jquery/daterangepicker.js"></script>
+    <script src="~/jquery/jquery.overlayScrollbars.min.js"></script>
+    <script src="~/js/adminlte.js"></script>
+    <script src="~/lib/sweetalert.min.js"></script>
+    <script src="~/lib/sweetalert2.js"></script>
+    <script src="~/js/common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/datatables.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/buttons.dataTables.js"></script>
+    <script src="~/lib/axios.min.js"></script>
+    <script src="~/js/pdfmake.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/buttons.print.min.js"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+    <link href="~/css/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/js/sweetalert2.min.js"></script>
+    <script src="~/js/zconfig.js"></script>
+    <script src="~/js/printThis.js"></script>
+    <script src="~/js/select2.js"></script>
+    <script src="~/js/ua-parser.min.js"></script>
+    <script src="~/js/loadingoverlay.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/Corelib.js"></script>
+    <script src="~/lib/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-fancybox="gallery"]').fancybox({
+                buttons: [
+                    "zoom",
+                    "slideShow",
+                    "fullScreen",
+                    "download",
+                    "thumbs",
+                    "close"
+                ],
+            });
+            
+
+        });
+        
+    </script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

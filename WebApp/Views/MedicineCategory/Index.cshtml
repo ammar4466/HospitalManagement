@@ -1,0 +1,104 @@
+﻿<div class="content-wrapper" style="min-height: 682.883px;">
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="wrapper">
+                <div class="panel panel-hash">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="fa fa-plus-square fa-2x" onclick="AddEdit(0)"></a>
+                            </div>
+                            <div class="col-md-6 pull-right">
+                                <h5 class="pull-right"><b>&nbsp;Medicine Categories List</b></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body scroll panel-height">
+                        <div id="tblMedicineCategories_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="dt-buttons"><button class="dt-button buttons-collection buttons-page-length" tabindex="0" aria-controls="tblMedicineCategories" type="button" aria-haspopup="true"><span>Show 20 rows</span></button> </div><div id="tblMedicineCategories_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="tblMedicineCategories"></label></div><div id="tblMedicineCategories_processing" class="dataTables_processing card" style="display: none;">Processing...</div><table id="tblMedicineCategories" class="ItemTranTable dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="tblMedicineCategories_info">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        @*<th>Created By</th>*@
+                                        <th>Created Date</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody></tbody>
+                            </table><div class="dataTables_info" id="tblMedicineCategories_info" role="status" aria-live="polite">Showing 1 to 9 of 9 entries</div><div class="dataTables_paginate paging_simple_numbers" id="tblMedicineCategories_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="tblMedicineCategories_previous"><a href="#" aria-controls="tblMedicineCategories" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="tblMedicineCategories" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="tblMedicineCategories_next"><a href="#" aria-controls="tblMedicineCategories" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li></ul></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sidebar-overlay"></div>
+            </div>
+        </div>
+    </main>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            loadMCategory();
+        });
+        function loadMCategory() {
+            $.post("/MedicineCategory/GetMCategory").done(function (res) {
+                $("#tblMedicineCategories tbody").html(res);
+            }).fail(function (xhr) {
+                Q.notify(-1, 'Server Error');
+            })
+        }
+
+        var AddEdit = (id) => {
+            Q.preloader.load();
+            $.post('/MedicineCategory/AddMCategory', { Id: id }).done((response) => {
+                //$("#pv").html(response);
+                let _title = id == '0' ? 'Add' : 'Edit';
+                Q.alert({
+                    title: _title,
+                    body: response,
+                    width: 500,
+                    top: 20
+                });
+                Q.preloader.remove();
+            }).fail((xhr) => {
+                console.error(xhr.responseText);
+                Q.notify(-1, 'Server Error!');
+            });
+        }
+        var SaveMcat = () => {
+            let obj = {
+                Id: $("#Id").val(),
+                Name: $("#Name").val(),
+                Description: $("#Description").val(),
+            };
+            $.post("/MedicineCategory/SaveMCategory", obj).done((response) => {
+                console.log(response)
+                Q.notify(response.statusCode, response.msg);
+                if (response.statusCode == 1) {
+                    $('.ui-dialog-titlebar-close').click();
+                    loadMCategory();
+                }
+            }).fail((xhr) => {
+                console.error(xhr.msg);
+                Q.notify(-1, 'Server Error');
+            })
+        }
+
+        var DelMcat = (Id) => Q.confirm("Are You Sure. You Want To Delete Delete Medicine Category", () => deleteMcat(Id), { width: "500px" });
+        var deleteMcat = function (Id) {
+            $.post('/MedicineCategory/DeleteMCategory', { Id: Id }).done((response) => {
+                Q.notify(response.statusCode, response.msg);
+                if (response.statusCode == 1) {
+                    loadMCategory();
+                }
+            });
+        };
+
+
+    </script>
+}

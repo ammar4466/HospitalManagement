@@ -1,0 +1,41 @@
+﻿@using Infrastructure.Model;
+@model List<DoctorInfo>
+@if (Model.Any())
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>@i</td>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.PhoneNumber</td>
+            <td>@item.Email</td>
+            <td>@item.DoctorFee</td>
+            <td>@item.Designation</td>
+            <td>@item.Address</td>
+            <td>@item.Country</td>
+            <td>
+                @*<img src="@item.ProfilePicture" style="max-width:50px;height:20px" class="img-fluid">*@
+                <a class="fancybox" href="@item.ProfilePicture" data-fancybox data-caption="@item.FullName">
+                    <img src="@item.ProfilePicture" onerror="this.onerror=null;this.src='/images/noimage.jpg'" class="circleImg" alt="No Image Found" style="width:70%" />
+                </a>
+            </td>
+            <td>@item.RoleId</td>
+            <td>
+                <button class="btn btn-primary" onclick="AddEditDoctorInfo(@item.DoctorId)" style="font-size:small">Edit</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" onclick="Deldoctor(@item.DoctorId)" style="font-size:small">Delete</button>
+            </td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td class="text-danger text-center" colspan="13">No Record Found</td>
+    </tr>
+}
+

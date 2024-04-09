@@ -1,0 +1,146 @@
+﻿<div class="content-wrapper" style="min-height: 200.1px;">
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="wrapper">
+                <div class="panel panel-hash">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="fa fa-plus-square fa-2x" onclick="AddEdit(0)"></a>
+                            </div>
+                            <div class="col-md-6 pull-right">
+                                <h5 class="pull-right"><b>&nbsp;Medicines List</b></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body scroll panel-height">
+                        <div id="tblMedicines_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="dt-buttons">
+                                <button class="dt-button buttons-collection buttons-page-length" tabindex="0" aria-controls="tblMedicines" type="button" aria-haspopup="true"><span>Show 20 rows</span></button>
+                                <button class="dt-button buttons-collection" tabindex="0" aria-controls="tblMedicines" type="button" aria-haspopup="true"><span>Export</span></button>
+                            </div>
+                            <div id="tblMedicines_filter" class="dataTables_filter">
+                                <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="tblMedicines"></label>
+                                </div>
+                                <div id="tblMedicines_processing" class="dataTables_processing card" style="display: none;">Processing...</div>
+                                <table id="tblMedicines" class="ItemTranTable dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="tblMedicines_info">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Code</th>
+                                        <th>Medicine Name</th>
+                                        <th>Medicine Category</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price</th>
+                                        <th>Sell Price</th>
+                                        <th>Quantity</th>
+                                        <th>Expiry Date</th>
+                                        <th>Add Quantity</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table><div class="dataTables_info" id="tblMedicines_info" role="status" aria-live="polite">Showing 1 to 6 of 6 entries</div><div class="dataTables_paginate paging_simple_numbers" id="tblMedicines_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="tblMedicines_previous"><a href="#" aria-controls="tblMedicines" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="tblMedicines" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="tblMedicines_next"><a href="#" aria-controls="tblMedicines" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li></ul></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sidebar-overlay"></div>
+            </div>
+        </div>
+    </main>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            loadMedicineList();
+        });
+        var loadMedicineList = () => {
+            $.post('/Medicine/GetMedicineList').done((res) => {
+                $("#tblMedicines tbody").html(res);
+            });
+        };
+
+        var AddEdit = (Id) => {
+            $.post('/Medicine/AddMedicines', { Id: Id }).done((res) => {
+                let a = Id == 0 ? 'Add' : 'Edit';
+                Q.alert({
+                    title: a,
+                    body: res,
+                    width: 1100,
+                    top: 30,
+                });
+            }).fail((xhr) => {
+                Q.notify(-1, 'server error');
+            });
+        }
+
+        var SaveMedi = () => {
+            debugger;
+            let obj = {
+                Id: $("#Id").val(),
+                MedicineCategoryId: $("#MedicineCategoryId").val(),
+                Code: $("#Code").val(),
+                MedicineName: $("#MedicineName").val(),
+                ManufactureId: $("#ManufactureId").val(),
+                UnitId: $("#UnitId").val(),
+                Description: $("#Description").val(),
+                UnitPrice: $("#UnitPrice").val(),
+                SellPrice: $("#SellPrice").val(),
+                Quantity: $("#Quantity").val(),
+                StockKeepingUnit: $("#StockKeepingUnit").val(),
+                ExpiryDate: $("#ExpiryDate").val(),
+            };
+            $.post('/Medicine/SaveMedicines', obj).done((res) => {
+                Q.notify(res.statusCode, res.msg);
+                if (res.statusCode == 1) {
+                    $('.ui-dialog-titlebar-close').click();
+                    loadMedicineList();
+                }
+            }).fail((xhr) => {
+                console.error(xhr.msg);
+                Q.notify(-1, 'Server Error');
+            });
+        };
+        var deleteMedi = (Id) => Q.confirm("Are You Sure. You Want to Delete Medicine Info", () => deleteMedicine(Id), { width: "500px" });
+        var deleteMedicine = (Id) => {
+            $.post('/Medicine/DeleteMedicine', { Id: Id }).done((res) => {
+                Q.notify(res.statusCode, res.msg);
+                if (res.statusCode == 1) {
+                    loadMedicineList();
+                };
+            });
+        }
+        var AddQuantity = (Id) => {
+            $.post('/Medicine/AddQuantity', { Id: Id }).done((res) => {
+                Q.alert({
+                    title: "Update Quantity. Item ID:" + Id,
+                    body: res,
+                    width: 900,
+                    //height: 700,
+                    top: 20
+                });
+            }).fail((xhr) => {
+                Q.notify(-1, 'server error');
+            });
+        }
+        var saveQuantity = (Id, Quantity) => {
+            let obj = {
+                Id: $("#Id").val(),
+                AddQuantity: $("#quan").val(),
+                Quantity: Quantity,
+            };
+            $.post('/Medicine/SaveQuantity', obj).done((res) => {
+                Q.notify(res.statusCode, res.msg);
+                if (res.statusCode == 1) {
+                    $('.ui-dialog-titlebar-close').click();
+                    loadMedicineList();
+                }
+            }).fail((xhr) => {
+                console.error(xhr.msg);
+                Q.notify(-1, 'Server Error');
+            });
+        };
+    </script>
+}

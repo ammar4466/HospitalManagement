@@ -1,0 +1,146 @@
+﻿@using Infrastructure.Model;
+@model MedicineCatVM
+@{
+    var MCatLIST = new SelectList(Model.medicineCategories, "Id", "Name");
+}
+<div class="modal-content">
+    @* <div class="modal-header">
+    <div class="col-md-8">
+    <h3 id="titleExtraBigModal" class="modal-title">Add Medicines</h3>
+    </div>
+    <div class="col-md-pull-4 pull-right">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+    </div>
+    </div>*@
+
+    <div class="modal-body" id="ExtraBigModalDiv">
+
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label asp-for="MedicineCategoryId" class="col-sm-3 col-form-label">Medicine Category</label>
+                                <div class="col-sm-9">
+                                    <input type="hidden" asp-for="Id" />
+                                    <select asp-for="MedicineCategoryId" asp-items="@MCatLIST" class="form-control" data-val="true" data-val-required="The Medicine Category field is required.">
+                                        <option value="0">--- SELECT ---</option>
+                                        @* <option value="1">Fever</option>
+                                        <option value="2">Severe Pain</option>
+                                        <option value="3">Infection</option>
+                                        <option value="4">Anxiety</option>
+                                        <option value="5">Depression</option>
+                                        <option value="6">Cold</option>
+                                        <option value="7">Nerve Pain</option>
+                                        <option value="8">High BP</option>
+                                        <option value="9">GERD</option>*@
+                                    </select>
+                                    <span asp-validation-for="MedicineCategoryId" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="Code" class="col-sm-3 col-form-label">Code</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Code" class="form-control" data-val="true" data-val-required="The Code field is required.">
+                                    <span asp-validation-for="Code" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="MedicineName" class="col-sm-3 col-form-label">Medicine Name</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="MedicineName" class="form-control" data-val="true" data-val-required="The Medicine Name field is required.">
+                                    <span asp-validation-for="MedicineName" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="ManufactureId" class="col-sm-3 col-form-label">Manufacture</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="ManufactureId" class="form-control" data-val="true" data-val-required="The Manufacture field is required.">
+                                        <option disabled selected>--- SELECT ---</option>
+                                        <option value="1">Johnson & Johnson</option>
+                                        <option value="2">Pfizer</option>
+                                        <option value="3">Sanofi</option>
+                                        <option value="4">Novartis</option>
+                                        <option value="5">GlaxoSmithKline</option>
+                                    </select>
+                                    <span asp-validation-for="ManufactureId" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="UnitId" class="col-sm-3 col-form-label">Unit</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="UnitId" class="form-control" data-val="true" data-val-required="The Unit field is required.">
+                                        <option disabled selected>--- SELECT ---</option>
+                                        <option value="1">ml</option>
+                                        <option value="2">mg</option>
+                                        <option value="3">pc</option>
+                                    </select>
+                                    <span asp-validation-for="UnitId" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="Description" class="col-sm-3 col-form-label">Description</label>
+                                <div class="col-sm-9">
+                                    <textarea asp-for="Description" class="form-control"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label asp-for="UnitPrice" class="col-sm-3 col-form-label">Unit Price</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="UnitPrice" onchange="CalculateSellPrice()" class="form-control" type="number" data-val="true" data-val-number="The field Unit Price must be a number." data-val-required="The Unit Price field is required.">
+                                    <span asp-validation-for="UnitPrice" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="SellPrice" class="col-sm-3 col-form-label">Sell Price</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="SellPrice" class="form-control" type="number" data-val="true" data-val-number="The field Sell Price must be a number." data-val-required="The Sell Price field is required.">
+                                    <span asp-validation-for="SellPrice" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="Quantity" class="col-sm-3 col-form-label">Quantity</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Quantity" class="form-control" type="number" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="The Quantity field is required.">
+                                    <span asp-validation-for="Quantity" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="StockKeepingUnit" class="col-sm-3 col-form-label">SKU</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="StockKeepingUnit" class="form-control" type="text">
+                                    <span asp-validation-for="StockKeepingUnit" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="ExpiryDate" class="col-sm-3 col-form-label">Expiry Date</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="ExpiryDate" class="form-control" type="datetime-local" data-val="true" data-val-required="The Expiry Date field is required.">
+                                    <span asp-validation-for="ExpiryDate" class="text-danger" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input type="submit" value="Save" class="btn btn-info" onclick="SaveMedi()">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
+

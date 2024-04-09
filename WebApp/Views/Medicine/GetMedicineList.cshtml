@@ -1,0 +1,37 @@
+﻿@using Infrastructure.Model;
+@model List<Medicines>
+@if (Model.Any())
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>@i</td>
+            <td>@item.Code</td>
+            <td>@item.MedicineName</td>
+            <td>@item.MedicineCategoryId</td>
+            <td>@item.UnitId</td>
+            <td>@item.UnitPrice</td>
+            <td>@item.SellPrice</td>
+            <td>@item.Quantity</td>
+            <td>@item.ExpiryDate</td>
+            <td>
+                <button class="btn btn-primary" onclick="AddQuantity(@item.Id)" style="font-size:small"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            </td>
+            <td>
+                <button class="btn btn-info" onclick="AddEdit(@item.Id)" style="font-size:small"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            </td>
+            <td>
+                <button class="btn btn-danger" onclick="deleteMedi(@item.Id)" style="font-size:small"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    }
+
+}
+else
+{
+    <tr>
+        <td class="text-center text-danger" colspan="12">No Record Found</td>
+    </tr>
+}

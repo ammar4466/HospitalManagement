@@ -1,0 +1,140 @@
+﻿<div class="content-wrapper" style="min-height: 200.1px;">
+    <main role="main" class="content">
+        <div class="container-fluid">
+            <div class="wrapper">
+                <div class="panel panel-hash">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <a class="fa fa-plus-square fa-2x" onclick="AddEditDoctorInfo(0)"></a>
+                            </div>
+                            <div class="col-md-7 pull-right">
+                                <h5 class="pull-right"><b>&nbsp;Doctors List</b></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body scroll panel-height">
+                        <div id="tbldoctor_info" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="dt-buttons">
+                                <button class="dt-button buttons-collection buttons-page-length" tabindex="0" aria-controls="tbldoctor_info" type="button" aria-haspopup="true">
+                                    <span>Show 20 rows</span>
+                                </button>
+                            </div>
+                            <div id="tbldoctor_info_filter" class="dataTables_filter">
+                                <label>
+                                    Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="tblPatientAppointment">
+                                </label>
+                            </div>
+                            <div id="tbldoctor_info_processing" class="dataTables_processing card" style="display: none;">Processing...</div>
+                            <table id="tblPatientAppointment" class="ItemTranTable dataTable no-footer" style="width: 100%;" role="grid" aria-describedby="tbldoctor_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th>#</th>
+                                        <th width="10%">FirstName</th>
+                                        <th width="15%">LastName</th>
+                                        <th width="15%">Phone No</th>
+                                        <th width="15%">Email</th>
+                                        <th width="10%">Doctor Fee</th>
+                                        <th width="10%">Designation</th>
+                                        <th width="15%">Address</th>
+                                        <th width="10%">Country</th>
+                                        <th width="30%">Picture</th>
+                                        <th width="10%">RoleId</th>
+                                        <th width="10%"></th>
+                                        <th width="10%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table><div class="dataTables_info" id="tblPatientAppointment_info" role="status" aria-live="polite">Showing 1 to 2 of 2 entries</div><div class="dataTables_paginate paging_simple_numbers" id="tblPatientAppointment_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="tblPatientAppointment_previous"><a href="#" aria-controls="tblPatientAppointment" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="tblPatientAppointment" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="tblPatientAppointment_next"><a href="#" aria-controls="tblPatientAppointment" data-dt-idx="2" tabindex="0" class="page-link">Next</a></li></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            loadDoctorList();
+        });
+        var loadDoctorList = () => {
+            $.post('/Doctor/GetDoctorInfo').done((res) => {
+                $("#tbldoctor_info tbody").html(res);
+            });
+        }
+        var AddEditDoctorInfo = (DoctorId) => {
+            $.post('/Doctor/AddDoctor', { DoctorId: DoctorId }).done((res) => {
+                let _title = DoctorId == '0' ? 'Add' : 'Edit';
+                Q.alert({
+                    title: _title,
+                    body: res,
+                    width: 1000,
+                });
+            });
+        }
+        var savedoctor = () => {
+            let param = {
+                DoctorId: $("#DoctorId").val(),
+                FirstName: $("#FirstName").val(),
+                LastName: $("#LastName").val(),
+                PhoneNumber: $("#PhoneNumber").val(),
+                Email: $("#Email").val(),
+                Password: $("#Password").val(),
+                ConfirmPassword: $("#ConfirmPassword").val(),
+                DoctorFee: $("#DoctorFee").val(),
+                Designation: $("#Designation").val(),
+                Address: $("#Address").val(),
+                Country: $("#Country").val(),
+                Image: $("#ProfilePicture")[0].files[0],
+                RoleId: $("#RoleId").val(),
+            };
+            var formData = new FormData();
+            formData.append('DoctorId', param.DoctorId);
+            formData.append('FirstName', param.FirstName);
+            formData.append('LastName', param.LastName);
+            formData.append('PhoneNumber', param.PhoneNumber);
+            formData.append('Email', param.Email);
+            formData.append('Password', param.Password);
+            formData.append('ConfirmPassword', param.ConfirmPassword);
+            formData.append('DoctorFee', param.DoctorFee);
+            formData.append('Designation', param.Designation);
+            formData.append('Address', param.Address);
+            formData.append('Country', param.Country);
+            formData.append('Image', param.Image);
+            formData.append('RoleId', param.RoleId);
+            $.ajax({
+                url: '/Doctor/SaveDoctorInfo',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    Q.notify(res.statusCode, res.msg);
+                    if (res.statusCode == 1) {
+                        $('.ui-dialog-titlebar-close').click();
+                        loadDoctorList();
+                    }
+                },
+                error: function (xhr) {
+                    console.error(xhr.msg);
+                    Q.notify(-1, 'Server Error');
+                }
+            });
+
+        }
+        var Deldoctor = (DoctorId) => Q.confirm("Are You Sure. You Want To Delete DoctorInfo", () => deleteDoctor(DoctorId), { width: "500px" });
+        var deleteDoctor = (DoctorId) => {
+            $.post('/Doctor/DeleteDoctorInfo', { DoctorId: DoctorId }).done((res) => {
+                Q.notify(res.statusCode, res.msg);
+                if (res.statusCode == 1) {
+                    loadDoctorList();
+                }
+            });
+
+
+        };
+
+    </script>
+}
